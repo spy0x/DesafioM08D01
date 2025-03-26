@@ -1,10 +1,11 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
     stages {
         stage('Checkout') {
             steps {
                 echo 'Checking out code..'
-                git 'https://github.com/spy0x/DesafioM08D01.git'
+                git branch: 'main',
+                    url: 'https://github.com/spy0x/DesafioM08D01.git'
             }
         }
 
@@ -12,15 +13,18 @@ pipeline {
             steps {
                 echo 'Building the app..'
                 sh 'npm install' // Ensure dependencies are installed
-                echo 'Running the app..'
-                sh 'npm start'
           }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying the app..'
-                docker.build('my-docker-image:latest')
+                script {
+                    // Build the Docker image (assumes Dockerfile is in root)
+                    docker.build('proyecto-desafioM08:latest')
+                    // Alternative with more control:
+                    // docker.build("your-image-name", "--file ./path/to/Dockerfile .")
+                }
             }
         }
     }
