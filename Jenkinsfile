@@ -21,7 +21,7 @@ pipeline {
                 echo 'Deploying the app..'
                 script {
                     // Build the Docker image (assumes Dockerfile is in root)
-                    docker.build('proyecto-desafioM08:latest')
+                    docker.build('proyecto-desafiom08:latest')
                     // Alternative with more control:
                     // docker.build("your-image-name", "--file ./path/to/Dockerfile .")
                 }
